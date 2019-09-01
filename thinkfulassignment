@@ -1,0 +1,29 @@
+function getTokens(rawString) {
+  // NB: `.filter(Boolean)` removes any falsy items from an array
+  return rawString.toLowerCase().split(/[ ,!.";:-]+/).filter(Boolean).sort();
+}
+//input text will be converted to lowercase, with punctiatin removed and split into an array of strings.
+
+function mostFrequentWord(text) {
+////this function is going to look for the most frequent word in the text
+  let words = getTokens(text);//removes any falsy items and converts each to lowercase
+  let wordFrequencies = {};//data between brackets will be evaluated
+  
+  for (let i = 0; i <= words.length; i++) /*loops over each wor*/{
+    if (words[i] in wordFrequencies) {
+      wordFrequencies[words[i]]++;
+    } else {
+      wordFrequencies[words[i]] = 1;
+    }//if the word appearsin frequencies already then add one to the total, otherwise it only appears once and it will be assigned a value of 1.
+  }
+  let currentMaxKey = Object.keys(wordFrequencies)[0];
+  let currentMaxCount = wordFrequencies[currentMaxKey];
+  //counts anytime a word is used in the text
+  for (let word in wordFrequencies) {
+    if (wordFrequencies[word] > currentMaxCount) {
+      currentMaxKey = word;
+      currentMaxCount = wordFrequencies[word];
+    }
+  }
+  return currentMaxKey;
+}//retuns the final word that has been stored in currentMaxKey
